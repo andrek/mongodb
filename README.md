@@ -24,12 +24,13 @@ WriteResult({ "nInserted" : 1 })
 
 > db.pets.findOne()
 
+```
 {
         "_id" : ObjectId("5e69840d545d40410bce06de"),
         "name" : "Mike",
         "species" : "Hamster"
 }
-
+```
 
 4. Identifique o ID para o Gato Kilha.
 
@@ -49,19 +50,19 @@ WriteResult({ "nInserted" : 1 })
 
 > db.pets.find({species: "Hamster"})
 
+```
 { "_id" : ObjectId("5e69840d545d40410bce06de"), "name" : "Mike", "species" : "Hamster" }
-
 { "_id" : ObjectId("5e698467545d40410bce06e5"), "name" : "Frodo", "species" : "Hamster" }
-
+```
 
 7. Use o find para listar todos os pets com nome Mike
 
 > db.pets.find({name: "Mike"})
 
+```
 { "_id" : ObjectId("5e69840d545d40410bce06de"), "name" : "Mike", "species" : "Hamster" }
-
 { "_id" : ObjectId("5e698421545d40410bce06e1"), "name" : "Mike", "species" : "Cachorro" }
-
+```
 
 8. Liste apenas o documento que é um Cachorro chamado Mike
 
@@ -142,7 +143,7 @@ WriteResult({ "nInserted" : 1 })
 
 > db.italians.find({"bloodType":/-/},{firstname:1,surname:1,_id: 0})
 
-`
+```
 { "firstname" : "Michele", "surname" : "Mancini" }
 { "firstname" : "Teresa", "surname" : "Conti" }
 { "firstname" : "Valeira", "surname" : "Bernardi" }
@@ -164,13 +165,13 @@ WriteResult({ "nInserted" : 1 })
 { "firstname" : "Mirko", "surname" : "Santoro" }
 { "firstname" : "Giovanna", "surname" : "Caruso" }
 Type "it" for more
-`
+```
 
 11. Projete apenas os animais dos italianos. Devem ser listados os animais com nome e idade. Não mostre o identificado do mongo (ObjectId)
 
 > db.italians.find({"$or":[{cat:{$exists:true}},{dog:{$exists:true}}]},{cat:1,dog:1,_id:0})
 
-`
+```
 { "cat" : { "name" : "Rosa", "age" : 15 } }
 { "cat" : { "name" : "Domenico", "age" : 9 } }
 { "cat" : { "name" : "Giorgia", "age" : 10 } }
@@ -192,19 +193,19 @@ Type "it" for more
 { "cat" : { "name" : "Fabrizio", "age" : 17 } }
 { "dog" : { "name" : "Nicola", "age" : 15 } }
 Type "it" for more
-`
+```
 
 12. Quais são as 5 pessoas mais velhas com sobrenome Rossi?
 
 > db.italians.find({surname: "Rossi"},{firstname:1, age:1, _id:0}).sort({age: -1}).limit(5)
 
-`
+```
 { "firstname" : "Angelo", "age" : 79 }
 { "firstname" : "Gianluca", "age" : 78 }
 { "firstname" : "Giorgio", "age" : 78 }
 { "firstname" : "Pasquale", "age" : 77 }
 { "firstname" : "Salvatore", "age" : 75 }
-`
+```
 
 13. Crie um italiano que tenha um leão como animal de estimação. Associe um nome e idade ao bichano
 
@@ -237,6 +238,7 @@ WriteResult({ "nMatched" : 6042, "nUpserted" : 0, "nModified" : 6042 })
 WriteResult({ "nMatched" : 3965, "nUpserted" : 0, "nModified" : 3965 })
 
 16. O Corona Vírus chegou na Itália e misteriosamente atingiu pessoas somente com gatos e de 66 anos. Remova esses italianos.
+
 > db.italians.remove({"$and":[{cat:{$exists:true}},{age:66}]})
 WriteResult({ "nRemoved" : 112 })
 
@@ -248,7 +250,7 @@ WriteResult({ "nRemoved" : 112 })
   {'$match': {"isEqual": 0}}
 ]);
 
-`
+```
 { "_id" : ObjectId("5e868d3d56be2d840cf08bef"), "firstname" : "Gianluca", "mother" : { "firstname" : "Gianluca", "surname" : "Barbieri", "age" : 57 }, "cat" : { "name" : "Giusy", "age" : 12 }, "isEqual" : 0 }
 { "_id" : ObjectId("5e868d3f56be2d840cf08f84"), "firstname" : "Emanuela", "mother" : { "firstname" : "Emanuela", "surname" : "Benedetti", "age" : 44 }, "cat" : { "name" : "Daniele", "age" : 3 }, "isEqual" : 0 }
 { "_id" : ObjectId("5e868d4256be2d840cf09609"), "firstname" : "Antonella", "mother" : { "firstname" : "Antonella", "surname" : "Barone", "age" : 54 }, "dog" : { "name" : "Roberto", "age" : 17 }, "isEqual" : 0 }
@@ -263,13 +265,13 @@ WriteResult({ "nRemoved" : 112 })
 { "_id" : ObjectId("5e868d4b56be2d840cf0a9e2"), "firstname" : "Giusy", "mother" : { "firstname" : "Giusy", "surname" : "Bruno", "age" : 46 }, "cat" : { "name" : "Enzo ", "age" : 7 }, "isEqual" : 0 }
 { "_id" : ObjectId("5e868d4b56be2d840cf0aa0c"), "firstname" : "Roberta", "mother" : { "firstname" : "Roberta", "surname" : "Galli", "age" : 104 }, "dog" : { "name" : "Rita", "age" : 6 }, "isEqual" : 0 }
 { "_id" : ObjectId("5e868d4c56be2d840cf0ad74"), "firstname" : "Domenico", "mother" : { "firstname" : "Domenico", "surname" : "Pellegrino", "age" : 67 }, "dog" : { "name" : "Monica", "age" : 2 }, "isEqual" : 0 }
-`
+```
 
 18. Utilizando aggrgate framework, faça uma lista de nomes única de nomes. Faça isso usando apenas o primeiro nome
 
 > db.italians.aggregate([{$group: {_id: "$firstname"}},{'$project': {"firstname": 1}}])
 
-`
+```
 { "_id" : "Giovanna" }
 { "_id" : "Andrea" }
 { "_id" : "Angelo" }
@@ -291,13 +293,13 @@ WriteResult({ "nRemoved" : 112 })
 { "_id" : "Angela" }
 { "_id" : "Alex" }
 Type "it" for more
-`
+```
 
 19. Agora faça a mesma lista do item acima, considerando nome completo.
 
 > db.italians.aggregate([{$group: {_id: { firstname: "$firstname", surname: "$surname" }}}]);
 
-`
+```
 { "_id" : { "firstname" : "Valentina", "surname" : "Giordano" } }
 { "_id" : { "firstname" : "Valeira", "surname" : "Bruno" } }
 { "_id" : { "firstname" : "Anna", "surname" : "Martinelli" } }
@@ -319,7 +321,7 @@ Type "it" for more
 { "_id" : { "firstname" : "Tiziana", "surname" : "Messina" } }
 { "_id" : { "firstname" : "Antonella", "surname" : "Parisi" } }
 Type "it" for more
-`
+```
 
 20. Procure pessoas que gosta de Banana ou Maçã, tenham cachorro ou gato, mais de 20 e menos de 60 anos.
 
@@ -330,3 +332,102 @@ Type "it" for more
 ]}).count();
 
 11
+
+
+# Exercício 3 – Stockbrokers
+
+1. Liste as ações com profit acima de 0.5 (limite a 10 o resultado
+
+> db.stocks.find({"Profit Margin":{$gt: 0.5}}).limit(10)
+
+2. Liste as ações com perdas (limite a 10 novamente)
+
+> db.stocks.find({"Profit Margin":{$lt: 0}}).limit(10)
+
+3. Liste as 10 ações mais rentáveis
+
+> db.stocks.find({}).sort({"Profit Margin" : -1}).limit(10)
+
+4. Qual foi o setor mais rentável?
+
+> db.stocks.aggregate([{"$group":{_id:"$Sector", total:{$sum:"$Profit Margin" }}},{$sort:{total: -1}}])
+
+```
+{ "_id" : "Financial", "total" : 162.5356 }
+{ "_id" : "Services", "total" : 20.5515 }
+{ "_id" : "Consumer Goods", "total" : 13.23 }
+{ "_id" : "Industrial Goods", "total" : 11.0327 }
+{ "_id" : "Utilities", "total" : 7.423 }
+{ "_id" : "Conglomerates", "total" : 0.3835 }
+{ "_id" : "Basic Materials", "total" : -9.190900000000001 }
+{ "_id" : "Technology", "total" : -18.8968 }
+{ "_id" : "Healthcare", "total" : -316.68649999999997 }
+```
+
+5. Ordene as ações pelo profit e usando um cursor, liste as ações.
+
+> var cursor = db.stocks.find({}).sort({"Profit Margin" : -1}).limit(10)
+
+> cursor.forEach(function(x) {print(x.Ticker, x["Profit Margin"])})
+
+```
+BPT 0.994
+CACB 0.994
+ROYT 0.99
+NDRO 0.986
+WHZ 0.982
+MVO 0.976
+AGNC 0.972
+VOC 0.971
+MTR 0.97
+OLP 0.97
+```
+
+6. Renomeie o campo “Profit Margin” para apenas “profit”.
+
+> db.stocks.update({"Profit Margin": { $exists: true }}, { $rename: {"Profit Margin": "Profit"}}, {multi: true})
+
+WriteResult({ "nMatched" : 4302, "nUpserted" : 0, "nModified" : 4302 })
+
+
+7. Agora liste apenas a empresa e seu respectivo resultado
+
+> db.stocks.find({},{"Company": 1,"Profit": 1, _id: 0})
+
+```
+{ "Company" : "iShares MSCI AC Asia Information Tech" }
+{ "Company" : "Applied Optoelectronics, Inc.", "Profit" : -0.023 }
+{ "Company" : "Atlantic American Corp.", "Profit" : 0.056 }
+{ "Company" : "AAON Inc.", "Profit" : 0.105 }
+{ "Company" : "Advantage Oil & Gas Ltd.", "Profit" : -0.232 }
+{ "Company" : "WCM/BNY Mellon Focused Growth ADR ETF" }
+{ "Company" : "Apple Inc.", "Profit" : 0.217 }
+{ "Company" : "AllianceBernstein Holding L.P.", "Profit" : 0.896 }
+{ "Company" : "Atlas Air Worldwide Holdings Inc.", "Profit" : 0.071 }
+{ "Company" : "Alcoa, Inc.", "Profit" : 0.013 }
+{ "Company" : "Abaxis Inc.", "Profit" : 0.1 }
+{ "Company" : "ABB Ltd.", "Profit" : 0.069 }
+{ "Company" : "AbbVie Inc.", "Profit" : 0.24 }
+{ "Company" : "Agilent Technologies Inc.", "Profit" : 0.137 }
+{ "Company" : "Cambium Learning Group, Inc.", "Profit" : -0.645 }
+{ "Company" : "Ameris Bancorp", "Profit" : 0.166 }
+{ "Company" : "AmerisourceBergen Corporation", "Profit" : 0.005 }
+{ "Company" : "Advisory Board Co.", "Profit" : 0.055 }
+{ "Company" : "ARCA biopharma, Inc." }
+{ "Company" : "Aaron's, Inc.", "Profit" : 0.06 }
+Type "it" for more
+```
+
+8. Analise as ações. É uma bola de cristal na sua mão... Quais as três ações
+você investiria?
+
+> db.stocks.find({}, {"Ticker":1, "Profit":1, "Company":1, "Sector":1, "_id":0 }).sort({"Profit": -1}).limit(3)
+
+```
+{ "Ticker" : "BPT", "Sector" : "Basic Materials", "Company" : "BP Prudhoe Bay Royalty Trust", "Profit" : 0.994 }
+{ "Ticker" : "CACB", "Sector" : "Financial", "Company" : "Cascade Bancorp", "Profit" : 0.994 }
+{ "Ticker" : "ROYT", "Sector" : "Basic Materials", "Company" : "Pacific Coast Oil Trust", "Profit" : 0.99 }
+```
+9. Liste as ações agrupadas por setor
+
+> db.stocks.aggregate([{$group: { _id :"$Sector", empresas: { $push: "$Company" }}}])
