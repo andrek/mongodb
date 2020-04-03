@@ -8,6 +8,7 @@ Praticas em MongoDB para a disciplina de Banco de Dados Não Relacionais (NOSQL)
 > db.pets.insert({name: "Frodo", species: "Peixe"})
 
 WriteResult({ "nInserted" : 1 })
+
 > db.pets.insert({name: "Frodo", species: "Hamster"})
 
 WriteResult({ "nInserted" : 1 })
@@ -34,17 +35,19 @@ WriteResult({ "nInserted" : 1 })
 
 4. Identifique o ID para o Gato Kilha.
 
-> db.pets.find({name: "Kilha", species: "Gato"}, {"_id":1})
+> db.pets.find({name: "Kilha", species: "Gato"}, {"_id":1
 
+`
 { "_id" : ObjectId("5e69841c545d40410bce06e0") }
-
+`
 
 5. Faça uma busca pelo ID e traga o Hamster Mike
 
-> db.pets.find({_id: db.pets.findOne({name: "Mike", species: "Hamster"}, {"_id":1})._id})
+> db.pets.find({_id: db.pets.findOne({name: "Mike", species: "Hamster"}, {"_id":1})._id
 
+`
 { "_id" : ObjectId("5e69840d545d40410bce06de"), "name" : "Mike", "species" : "Hamster" }
-
+`
 
 6. Use o find para trazer todos os Hamsters
 
@@ -68,7 +71,9 @@ WriteResult({ "nInserted" : 1 })
 
 > db.pets.find({name: "Mike", species: "Cachorro"})
 
+`
 { "_id" : ObjectId("5e698421545d40410bce06e1"), "name" : "Mike", "species" : "Cachorro" }
+`
 
 # Exercício 2 – Mama mia!
 
@@ -431,3 +436,18 @@ você investiria?
 9. Liste as ações agrupadas por setor
 
 > db.stocks.aggregate([{$group: { _id :"$Sector", empresas: { $push: "$Company" }}}])
+
+Exercício 4 – Fraude na Enron!
+
+
+1 Liste as pessoas que enviaram e-mails (de forma distinta, ou seja, sem repetir). Quantas pessoas são?
+
+> db.enron.distinct("sender").length
+
+2200
+
+2. Contabilize quantos e-mails tem a palavra “fraud”
+
+> db.enron.find({"text":{ $regex:".fraud."}}).count()
+
+23
